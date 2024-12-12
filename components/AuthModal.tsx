@@ -23,8 +23,7 @@ const AuthModal = () => {
       router.refresh();
       onClose();
     }
-  }),
-    [];
+  }, [session, router, onClose]); // Correctly passing dependencies
 
   const onChange = (open: boolean) => {
     if (!open) {

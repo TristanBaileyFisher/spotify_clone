@@ -1,5 +1,8 @@
 "use client";
 
+import useAuthModal from "@/hooks/useAuthModal";
+import useUploadAuthModal from "@/hooks/useUploadModal";
+import { useUser } from "@/hooks/useUser";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
 
@@ -9,9 +12,18 @@ interface BoxProps {
 }
 
 const library: React.FC<BoxProps> = ({ children, className }) => {
+  const authModal = useAuthModal();
+  const uploadModal = useUploadAuthModal();
+  const { user } = useUser();
   const onClick = () => {
+    if (!user) {
+      return authModal.onOpen();
+    }
+    //check for subscription
+    return uploadModal.onOpen();
     // handle upload later
   };
+
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between px-5 pt-4">
