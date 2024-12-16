@@ -3,15 +3,16 @@
 import useAuthModal from "@/hooks/useAuthModal";
 import useUploadAuthModal from "@/hooks/useUploadModal";
 import { useUser } from "@/hooks/useUser";
+import { Song } from "@/types";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
+import MediaItem from "./MediaItem";
 
-interface BoxProps {
-  children: React.ReactNode;
-  className?: string;
+interface LibraryProps {
+  songs: Song[];
 }
 
-const library: React.FC<BoxProps> = ({ children, className }) => {
+const library: React.FC<LibraryProps> = ({ songs }) => {
   const authModal = useAuthModal();
   const uploadModal = useUploadAuthModal();
   const { user } = useUser();
@@ -47,8 +48,9 @@ const library: React.FC<BoxProps> = ({ children, className }) => {
         className="
       flex flex-col gap-y-2 mt-4 px-3"
       >
-        {" "}
-        List of Songs !
+        {songs.map((item) => (
+          <MediaItem onClick={() => {}} key={item.id} data={item} />
+        ))}
       </div>
     </div>
   );
